@@ -1,5 +1,11 @@
 /.idea/
 /Fleeted/bin
 /Fleeted/obj
+<<<<<<< Updated upstream
 mod_fleeted.bat
 /Fleeted/libs
+=======
+/Fleeted/libs
+
+Assembly-CSharp
+>>>>>>> Stashed changes

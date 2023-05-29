@@ -37,6 +37,7 @@ public class CustomMenuManager : MonoBehaviour
     public GameObject playLocalOption;
     public GameObject playOnlineOption;
     public GameObject shipCursor;
+    //public GameObject shipCursorAnimation;
 
     public MainMenuController mainMenuController;
     private Sprite _connectSprite;
@@ -47,6 +48,9 @@ public class CustomMenuManager : MonoBehaviour
     private bool doOnceFlag;
 
     private SpriteRenderer iconRenderer;
+    private float menuBoatScalar;
+    //private Animator shipCursorAnimator;
+    //private bool animationDestroyed;
 
     public void Awake()
     {
@@ -92,15 +96,12 @@ public class CustomMenuManager : MonoBehaviour
         playOnlineOption.transform.position = new Vector3(7.364f, -0.36f, 0);
         _playOnlineTMP.text = "Play (Online)";
 
-        if (mainMenuController.selection == 7 && !doOnceFlag)
+        Plugin.Logger.LogInfo(mainMenuController.selection);
+        
+        if (0 < mainMenuController.selection)
         {
-            shipCursor.transform.position -= Vector3.up * 4.704f;
-            doOnceFlag = true;
-        }
-        else if (mainMenuController.selection < 7 && doOnceFlag)
-        {
-            shipCursor.transform.position += Vector3.up * 4.704f;
-            doOnceFlag = false;
+            menuBoatScalar = 4.704f * (mainMenuController.selection-1);
+            shipCursor.transform.position = new Vector3(-14.4f, 4.5f, 0.0f) - Vector3.up * menuBoatScalar;
         }
     }
 
@@ -114,9 +115,10 @@ public class CustomMenuManager : MonoBehaviour
         shipsIcon = GameObject.Find("MainMenu/Icons/ships_icon");
         playLocalOption = GameObject.Find("MainMenu/Canvas/Options/Play");
         shipCursor = GameObject.Find("MainMenu/ShipContainer/ShipContainer2/Ship");
+        //shipCursorAnimation = GameObject.Find("MainMenu/ShipContainer");
 
         mainMenuController = FindObjectOfType<MainMenuController>().GetComponent<MainMenuController>();
-
+        //shipCursorAnimator = shipCursorAnimation.GetComponent<Animator>();
         _playLocalTMP = playLocalOption.GetComponent<TextMeshProUGUI>();
 
         mainMenu.transform.localScale = Vector3.one * 0.8f;
